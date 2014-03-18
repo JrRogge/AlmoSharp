@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AlmosharpModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="AlmosharpModelStoreContainer">
+          <EntitySet Name="Baixas" EntityType="AlmosharpModel.Store.Baixas" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Entradas" EntityType="AlmosharpModel.Store.Entradas" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ItensBaixa" EntityType="AlmosharpModel.Store.ItensBaixa" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ItensEntrada" EntityType="AlmosharpModel.Store.ItensEntrada" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Produtos" EntityType="AlmosharpModel.Store.Produtos" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Baixas_ItensBaixas" Association="AlmosharpModel.Store.FK_Baixas_ItensBaixas">
+            <End Role="Baixas" EntitySet="Baixas" />
+            <End Role="ItensBaixa" EntitySet="ItensBaixa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entradas_ItensEntrada" Association="AlmosharpModel.Store.FK_Entradas_ItensEntrada">
+            <End Role="Entradas" EntitySet="Entradas" />
+            <End Role="ItensEntrada" EntitySet="ItensEntrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produto_ItensBaixas" Association="AlmosharpModel.Store.FK_Produto_ItensBaixas">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="ItensBaixa" EntitySet="ItensBaixa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produtos_ItensEntrada" Association="AlmosharpModel.Store.FK_Produtos_ItensEntrada">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="ItensEntrada" EntitySet="ItensEntrada" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Baixas">
+          <Key>
+            <PropertyRef Name="idBaixas" />
+          </Key>
+          <Property Name="idBaixas" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="varchar" MaxLength="255" />
+          <Property Name="Departamento" Type="varchar" MaxLength="255" />
+          <Property Name="DataBaixa" Type="date" />
+        </EntityType>
+        <EntityType Name="Entradas">
+          <Key>
+            <PropertyRef Name="idEntradas" />
+          </Key>
+          <Property Name="idEntradas" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="varchar" MaxLength="255" />
+          <Property Name="DataEntrada" Type="date" />
+        </EntityType>
+        <EntityType Name="ItensBaixa">
+          <Key>
+            <PropertyRef Name="idItensBaixa" />
+          </Key>
+          <Property Name="idItensBaixa" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Baixas_idBaixas" Type="int" />
+          <Property Name="Produtos_idProdutos" Type="int" />
+          <Property Name="Quantidade" Type="int" />
+        </EntityType>
+        <EntityType Name="ItensEntrada">
+          <Key>
+            <PropertyRef Name="idItensEntrada" />
+          </Key>
+          <Property Name="idItensEntrada" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Entradas_idEntradas" Type="int" />
+          <Property Name="Produtos_idProdutos" Type="int" />
+          <Property Name="Quantidade" Type="int" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="idProdutos" />
+          </Key>
+          <Property Name="idProdutos" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Unidade" Type="varchar" MaxLength="5" />
+          <Property Name="Quantidade" Type="int" />
+        </EntityType>
+        <Association Name="FK_Baixas_ItensBaixas">
+          <End Role="Baixas" Type="AlmosharpModel.Store.Baixas" Multiplicity="0..1" />
+          <End Role="ItensBaixa" Type="AlmosharpModel.Store.ItensBaixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Baixas">
+              <PropertyRef Name="idBaixas" />
+            </Principal>
+            <Dependent Role="ItensBaixa">
+              <PropertyRef Name="Baixas_idBaixas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entradas_ItensEntrada">
+          <End Role="Entradas" Type="AlmosharpModel.Store.Entradas" Multiplicity="0..1" />
+          <End Role="ItensEntrada" Type="AlmosharpModel.Store.ItensEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entradas">
+              <PropertyRef Name="idEntradas" />
+            </Principal>
+            <Dependent Role="ItensEntrada">
+              <PropertyRef Name="Entradas_idEntradas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produto_ItensBaixas">
+          <End Role="Produtos" Type="AlmosharpModel.Store.Produtos" Multiplicity="0..1" />
+          <End Role="ItensBaixa" Type="AlmosharpModel.Store.ItensBaixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="idProdutos" />
+            </Principal>
+            <Dependent Role="ItensBaixa">
+              <PropertyRef Name="Produtos_idProdutos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produtos_ItensEntrada">
+          <End Role="Produtos" Type="AlmosharpModel.Store.Produtos" Multiplicity="0..1" />
+          <End Role="ItensEntrada" Type="AlmosharpModel.Store.ItensEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="idProdutos" />
+            </Principal>
+            <Dependent Role="ItensEntrada">
+              <PropertyRef Name="Produtos_idProdutos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AlmosharpModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AlmosharpEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Baixas" EntityType="AlmosharpModel.Baixas" />
+          <EntitySet Name="Entradas" EntityType="AlmosharpModel.Entradas" />
+          <EntitySet Name="ItensBaixa" EntityType="AlmosharpModel.ItensBaixa" />
+          <EntitySet Name="ItensEntrada" EntityType="AlmosharpModel.ItensEntrada" />
+          <EntitySet Name="Produtos" EntityType="AlmosharpModel.Produtos" />
+          <AssociationSet Name="FK_Baixas_ItensBaixas" Association="AlmosharpModel.FK_Baixas_ItensBaixas">
+            <End Role="Baixas" EntitySet="Baixas" />
+            <End Role="ItensBaixa" EntitySet="ItensBaixa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entradas_ItensEntrada" Association="AlmosharpModel.FK_Entradas_ItensEntrada">
+            <End Role="Entradas" EntitySet="Entradas" />
+            <End Role="ItensEntrada" EntitySet="ItensEntrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produto_ItensBaixas" Association="AlmosharpModel.FK_Produto_ItensBaixas">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="ItensBaixa" EntitySet="ItensBaixa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produtos_ItensEntrada" Association="AlmosharpModel.FK_Produtos_ItensEntrada">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="ItensEntrada" EntitySet="ItensEntrada" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Baixas">
+          <Key>
+            <PropertyRef Name="idBaixas" />
+          </Key>
+          <Property Name="idBaixas" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Departamento" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="DataBaixa" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ItensBaixa" Relationship="AlmosharpModel.FK_Baixas_ItensBaixas" FromRole="Baixas" ToRole="ItensBaixa" />
+        </EntityType>
+        <EntityType Name="Entradas">
+          <Key>
+            <PropertyRef Name="idEntradas" />
+          </Key>
+          <Property Name="idEntradas" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="DataEntrada" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ItensEntrada" Relationship="AlmosharpModel.FK_Entradas_ItensEntrada" FromRole="Entradas" ToRole="ItensEntrada" />
+        </EntityType>
+        <EntityType Name="ItensBaixa">
+          <Key>
+            <PropertyRef Name="idItensBaixa" />
+          </Key>
+          <Property Name="idItensBaixa" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Baixas_idBaixas" Type="Int32" />
+          <Property Name="Produtos_idProdutos" Type="Int32" />
+          <Property Name="Quantidade" Type="Int32" />
+          <NavigationProperty Name="Baixas" Relationship="AlmosharpModel.FK_Baixas_ItensBaixas" FromRole="ItensBaixa" ToRole="Baixas" />
+          <NavigationProperty Name="Produtos" Relationship="AlmosharpModel.FK_Produto_ItensBaixas" FromRole="ItensBaixa" ToRole="Produtos" />
+        </EntityType>
+        <EntityType Name="ItensEntrada">
+          <Key>
+            <PropertyRef Name="idItensEntrada" />
+          </Key>
+          <Property Name="idItensEntrada" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Entradas_idEntradas" Type="Int32" />
+          <Property Name="Produtos_idProdutos" Type="Int32" />
+          <Property Name="Quantidade" Type="Int32" />
+          <NavigationProperty Name="Entradas" Relationship="AlmosharpModel.FK_Entradas_ItensEntrada" FromRole="ItensEntrada" ToRole="Entradas" />
+          <NavigationProperty Name="Produtos" Relationship="AlmosharpModel.FK_Produtos_ItensEntrada" FromRole="ItensEntrada" ToRole="Produtos" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="idProdutos" />
+          </Key>
+          <Property Name="idProdutos" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Unidade" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="Quantidade" Type="Int32" />
+          <NavigationProperty Name="ItensBaixa" Relationship="AlmosharpModel.FK_Produto_ItensBaixas" FromRole="Produtos" ToRole="ItensBaixa" />
+          <NavigationProperty Name="ItensEntrada" Relationship="AlmosharpModel.FK_Produtos_ItensEntrada" FromRole="Produtos" ToRole="ItensEntrada" />
+        </EntityType>
+        <Association Name="FK_Baixas_ItensBaixas">
+          <End Role="Baixas" Type="AlmosharpModel.Baixas" Multiplicity="0..1" />
+          <End Role="ItensBaixa" Type="AlmosharpModel.ItensBaixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Baixas">
+              <PropertyRef Name="idBaixas" />
+            </Principal>
+            <Dependent Role="ItensBaixa">
+              <PropertyRef Name="Baixas_idBaixas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entradas_ItensEntrada">
+          <End Role="Entradas" Type="AlmosharpModel.Entradas" Multiplicity="0..1" />
+          <End Role="ItensEntrada" Type="AlmosharpModel.ItensEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entradas">
+              <PropertyRef Name="idEntradas" />
+            </Principal>
+            <Dependent Role="ItensEntrada">
+              <PropertyRef Name="Entradas_idEntradas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produto_ItensBaixas">
+          <End Role="Produtos" Type="AlmosharpModel.Produtos" Multiplicity="0..1" />
+          <End Role="ItensBaixa" Type="AlmosharpModel.ItensBaixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="idProdutos" />
+            </Principal>
+            <Dependent Role="ItensBaixa">
+              <PropertyRef Name="Produtos_idProdutos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produtos_ItensEntrada">
+          <End Role="Produtos" Type="AlmosharpModel.Produtos" Multiplicity="0..1" />
+          <End Role="ItensEntrada" Type="AlmosharpModel.ItensEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="idProdutos" />
+            </Principal>
+            <Dependent Role="ItensEntrada">
+              <PropertyRef Name="Produtos_idProdutos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AlmosharpModelStoreContainer" CdmEntityContainer="AlmosharpEntities">
+          <EntitySetMapping Name="Baixas">
+            <EntityTypeMapping TypeName="AlmosharpModel.Baixas">
+              <MappingFragment StoreEntitySet="Baixas">
+                <ScalarProperty Name="idBaixas" ColumnName="idBaixas" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="DataBaixa" ColumnName="DataBaixa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entradas">
+            <EntityTypeMapping TypeName="AlmosharpModel.Entradas">
+              <MappingFragment StoreEntitySet="Entradas">
+                <ScalarProperty Name="idEntradas" ColumnName="idEntradas" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="DataEntrada" ColumnName="DataEntrada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItensBaixa">
+            <EntityTypeMapping TypeName="AlmosharpModel.ItensBaixa">
+              <MappingFragment StoreEntitySet="ItensBaixa">
+                <ScalarProperty Name="idItensBaixa" ColumnName="idItensBaixa" />
+                <ScalarProperty Name="Baixas_idBaixas" ColumnName="Baixas_idBaixas" />
+                <ScalarProperty Name="Produtos_idProdutos" ColumnName="Produtos_idProdutos" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItensEntrada">
+            <EntityTypeMapping TypeName="AlmosharpModel.ItensEntrada">
+              <MappingFragment StoreEntitySet="ItensEntrada">
+                <ScalarProperty Name="idItensEntrada" ColumnName="idItensEntrada" />
+                <ScalarProperty Name="Entradas_idEntradas" ColumnName="Entradas_idEntradas" />
+                <ScalarProperty Name="Produtos_idProdutos" ColumnName="Produtos_idProdutos" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produtos">
+            <EntityTypeMapping TypeName="AlmosharpModel.Produtos">
+              <MappingFragment StoreEntitySet="Produtos">
+                <ScalarProperty Name="idProdutos" ColumnName="idProdutos" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

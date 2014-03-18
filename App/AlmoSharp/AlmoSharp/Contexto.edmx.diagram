@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a67a63998454546b4c22254d25a12fd" Name="Diagram1">
+        <EntityTypeShape EntityType="AlmosharpModel.Baixas" Width="1.5" PointX="1" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlmosharpModel.Entradas" Width="1.5" PointX="5.625" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlmosharpModel.ItensBaixa" Width="1.5" PointX="0.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlmosharpModel.ItensEntrada" Width="1.5" PointX="5.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlmosharpModel.Produtos" Width="1.5" PointX="3.125" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="AlmosharpModel.FK_Baixas_ItensBaixas" ManuallyRouted="false" />
+        <AssociationConnector Association="AlmosharpModel.FK_Entradas_ItensEntrada" ManuallyRouted="false" />
+        <AssociationConnector Association="AlmosharpModel.FK_Produto_ItensBaixas" ManuallyRouted="false" />
+        <AssociationConnector Association="AlmosharpModel.FK_Produtos_ItensEntrada" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
